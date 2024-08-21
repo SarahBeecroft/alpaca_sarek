@@ -74,6 +74,10 @@ nextflow run main.nf \
 ```
 Replace /path/to/your/samplesheet.csv with the path to your input samplesheet and /path/to/results with your desired output directory.
 
+```bash
+watch squeue -u $USER
+```
+
 ## Custom Modifications
 We've made some custom modifications to optimize the pipeline for our environment:
 
@@ -85,7 +89,7 @@ If you encounter any issues, please check the following:
 
 Ensure all paths in your samplesheet are correct and accessible.
 Verify that the Slurm environment is properly set up.
-Check the Nextflow log files for any error messages.
+Check the Nextflow log files for any error messages (.nextflow.log)
 
 For further assistance, please contact our support team at support@example.com.
 ## Additional Resources
