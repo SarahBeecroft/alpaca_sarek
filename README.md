@@ -33,8 +33,7 @@ Setonix is a SLURM managed cluster at the Pawsey Supercomputing Research Centre.
 - Ensure your input fastq files and reference genome files are on scratch
 - Prepare your `samplesheet.csv` as per the example in this repo and the documentation from Sarek
 - Prepare your slurm script with the correct parameters for your job
-
-singularity versions will change- update in config
+- Ensure that the singularity and nextflow module versions are up-to-date in your slurm script and setonix.config file. These change over time. 
 
 
 ## Running the Pipeline
@@ -49,7 +48,7 @@ Below is a template Slurm script to run the pipeline with our custom configurati
 #SBATCH --cpus-per-task=2
 #SBATCH --mem=8GB
 #SBATCH --partition=work
-#SBATCH --time=5:00:00
+#SBATCH --time=24:00:00
 #SBATCH --mail-user=you@email.com
 #SBATCH --mail-type=ALL
 
@@ -72,17 +71,23 @@ nextflow run main.nf \
 	--aligner bwa-mem2 \
 	--joint_germline TRUE
 ```
-Replace /path/to/your/samplesheet.csv with the path to your input samplesheet and /path/to/results with your desired output directory.
+For the #SBATCH Slurm parameters, 2 CPUs and 8GB of mem should be more than enough to run the Nextflow master job. If you input your email address, you will get email updates about the job starting and ending. 
 
+Replace /path/to/xxx with the path to your various input files, and your desired output directory. You can also adjust various other parameters according to the Sarek documentation. 
+
+Once you are running the pipeline, you can watch the job queue with the following command if you are interested. Press `ctrl + c` to exit.
 ```bash
 watch squeue -u $USER
 ```
 
 ## Custom Modifications
 We've made some custom modifications to optimize the pipeline for our environment:
-
-Custom Slurm configuration in setonix.config
-Modifications to lines 133 and 134 in the main script to handle dbSNP files differently
+- Custom configuration for Setonix via the setonix.config file
+	- Enables Singularity
+ 	- 
+- Bug fix in `/subworkflows/local/bam_variant_calling_germline_all/main.nf` file
+	- There is a known bug in Sarek 3.4.3, outlined [here](https://github.com/nf-core/sarek/issues/1550)
+ 	- The `fix_haplotypecaller.sh` script patches the file outlined above with the fix from the GitHub issue by modifying lines 133 and 134.
 
 ## Troubleshooting
 If you encounter any issues, please check the following:
