@@ -20,11 +20,11 @@ Setonix is a SLURM managed cluster at the Pawsey Supercomputing Research Centre.
    ```
 2.  Download our custom configuration file:
    ```bash
-   wget https://path/to/your/setonix.config
+   wget https://raw.githubusercontent.com/SarahBeecroft/alpaca_sarek/main/setonix.config
    ```
 3. Download and run the `fix_haplotypecaller.sh` file:
    ```bash
-   wget https://path/to/your/setonix.config'
+   wget https://raw.githubusercontent.com/SarahBeecroft/alpaca_sarek/main/fix_haplotypecaller.sh
    bash fix_haplotypecaller.sh
    rm fix_haplotypecaller.sh
    ```
@@ -85,7 +85,7 @@ We've made some custom modifications to optimize the pipeline for our environmen
 - Important custom configuration for Setonix via the setonix.config file
 	- Enables jobs being submitted to the Slurm queue
  	- Sets limit for number of concurrent jobs to submit to the Slurm queue
-  	- Enables Singularity and loads the Singularity module, which is current as of AUgust 2024
+  	- Enables Singularity and loads the Singularity module, which is current as of August 2024
   	- Sets higher than standard memory allocation for the BWAMEM2_INDEX, FASTQC, and BWAMEM1_MEM|BWAMEM2_MEM steps 
 - Bug fix in `/subworkflows/local/bam_variant_calling_germline_all/main.nf` file
 	- There is a known bug in Sarek 3.4.3, outlined [here](https://github.com/nf-core/sarek/issues/1550)
