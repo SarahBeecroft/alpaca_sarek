@@ -82,9 +82,11 @@ watch squeue -u $USER
 
 ## Custom Modifications
 We've made some custom modifications to optimize the pipeline for our environment:
-- Custom configuration for Setonix via the setonix.config file
-	- Enables Singularity
- 	- 
+- Important custom configuration for Setonix via the setonix.config file
+	- Enables jobs being submitted to the Slurm queue
+ 	- Sets limit for number of concurrent jobs to submit to the Slurm queue
+  	- Enables Singularity and loads the Singularity module, which is current as of AUgust 2024
+  	- Sets higher than standard memory allocation for the BWAMEM2_INDEX, FASTQC, and BWAMEM1_MEM|BWAMEM2_MEM steps 
 - Bug fix in `/subworkflows/local/bam_variant_calling_germline_all/main.nf` file
 	- There is a known bug in Sarek 3.4.3, outlined [here](https://github.com/nf-core/sarek/issues/1550)
  	- The `fix_haplotypecaller.sh` script patches the file outlined above with the fix from the GitHub issue by modifying lines 133 and 134.
@@ -92,13 +94,7 @@ We've made some custom modifications to optimize the pipeline for our environmen
 ## Troubleshooting
 If you encounter any issues, please check the following:
 
-Ensure all paths in your samplesheet are correct and accessible.
-Verify that the Slurm environment is properly set up.
-Check the Nextflow log files for any error messages (.nextflow.log)
-
-For further assistance, please contact our support team at support@example.com.
-## Additional Resources
-
-Sarek Documentation
-Nextflow Documentation
-Slurm Documentation
+- Ensure all paths in your samplesheet are correct and accessible.
+- Verify that the Slurm environment is properly set up.
+- Check the Nextflow log files for any error messages (.nextflow.log)
+- Check that the input fastq files are valid and formatted correctly
